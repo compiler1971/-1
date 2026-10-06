@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Приглашение на Юбилей 55 лет — Андрей</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b0b0e;
+            --card-bg: rgba(20, 20, 26, 0.9);
+            --gold: #d4af37;
+            --gold-light: #f3e5ab;
+            --gold-dark: #aa8c2c;
+            --text-main: #f5f5f7;
+            --text-muted: #a1a1aa;
+            --border-gold: rgba(212, 175, 55, 0.4);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Montserrat', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 1100px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        /* Верхняя панель (хедер) */
+        .top-navbar {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            padding: 15px 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-gold);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+            gap: 15px;
+        }
+
+        .nav-left {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .nav-left span {
+            color: var(--gold);
+            font-weight: 500;
+        }
+
+        .nav-center {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .nav-right {
+            text-align: right;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .nav-right-title {
+            color: var(--gold);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 2px;
+        }
+
+        .nav-timer-values {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.05rem;
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        /* Детали ресторана */
+        header {
+            text-align: center;
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        .event-details {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .event-details strong {
+            color: var(--gold-light);
+            font-weight: 500;
+        }
+
+        /* Кнопка действия */
+        .btn-gold-container {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: 0;
+            text-align: center;
+        }
+
+        .btn-gold-container.visible {
+            max-height: 100px;
+            opacity: 1;
+            margin-top: 15px;
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
+            color: #0b0b0e;
+            border: none;
+            padding: 14px 35px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(212, 175, 55, 0.6);
+        }
+
+        /* Уменьшенный блок с видео */
+        .video-section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: var(--card-bg);
+            border: 1px solid var(--border-gold);
+            border-radius: 16px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .section-subtitle {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 280px;
+            height: 420px;
+            background: #000;
+            border-radius: 12px;
+            border: 2px solid var(--border-gold);
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        /* Блок выбора семей и стола — скрыт до конца видео */
+        .rsvp-section {
+            width: 100%;
+            background: var(--card-bg);
+            border: 1px solid var(--border-gold);
+            border-radius: 16px;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            gap: 25px;
+            
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            padding-top: 0;
+            padding-bottom: 0;
+            border: none;
+            margin: 0;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .rsvp-section.unlocked {
+            max-height: 2000px;
+            opacity: 1;
+            padding: 30px 20px;
+            border: 1px solid var(--border-gold);
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: var(--gold);
+            text-align: center;
+        }
+
+        .families-container {
+            width: 100%;
+            max-width: 550px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .family-card {
+            background: #181822;
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            border-radius: 12px;
+            padding: 15px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .family-card.selected {
+            border-color: var(--gold);
+            background: rgba(212, 175, 55, 0.08);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+        }
+
+        .family-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .family-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--text-main);
+        }
+
+        .family-btn-select {
+            background: #252533;
+            border: 1px solid var(--border-gold);
+            color: var(--gold);
+            padding: 8px 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .family-btn-select:hover {
+            background: var(--gold);
+            color: #0b0b0e;
+        }
+
+        .guest-names-box {
+            display: none;
+            flex-direction: column;
+            gap: 8px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding-top: 12px;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .guest-names-box.active {
+            display: flex;
+        }
+
+        .guest-names-title {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .names-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .name-btn {
+            background: #14141c;
+            border: 1px solid var(--border-gold);
+            color: var(--gold);
+            padding: 6px 14px;
+            border-radius: 16px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .name-btn:hover {
+            background: var(--gold);
+            color: #0b0b0e;
+            transform: scale(1.05);
+        }
+
+        .name-btn.confirmed {
+            background: #283618;
+            border-color: #606c38;
+            color: #dda15e;
+            cursor: default;
+            opacity: 0.7;
+        }
+
+        /* Банкетный зал и стол на 15 персон (все гости по бокам, юбиляр с левого торца) */
+        .banquet-hall {
+            position: relative;
+            width: 100%;
+            max-width: 980px;
+            height: 380px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 15px 0;
+            background: radial-gradient(circle, rgba(30, 30, 40, 0.6) 0%, rgba(10, 10, 14, 0.9) 100%);
+            border-radius: 14px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .long-table {
+            width: 68%;
+            height: 75px;
+            background: linear-gradient(180deg, #22222d 0%, #15151a 100%);
+            border: 2px solid var(--gold);
+            border-radius: 14px;
+            position: relative;
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.95), 0 12px 35px rgba(0,0,0,0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 3px;
+            font-size: 1.15rem;
+            text-transform: uppercase;
+        }
+
+        .long-table::before {
+            content: '🍾 🍷 🍽️ 🕯️ 🍽️ 🍷 🍾';
+            font-size: 0.85rem;
+            letter-spacing: 8px;
+            margin-bottom: 4px;
+            opacity: 0.9;
+        }
+
+        .long-table span {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            letter-spacing: 1.5px;
+            margin-top: 2px;
+            font-style: italic;
+            text-transform: none;
+        }
+
+        .chairs-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .chair {
+            position: absolute;
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            background: linear-gradient(145deg, #1f1f2b, #121217);
+            border: 2px solid rgba(212, 175, 55, 0.35);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+        }
+
+        .chair-number {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--gold-light);
+            opacity: 0.85;
+            transition: all 0.4s ease;
+        }
+
+        .chair.occupied {
+            background: linear-gradient(145deg, #4d3f1a, #1a1a24);
+            border: 2px solid var(--gold);
+            box-shadow: 0 0 18px rgba(212, 175, 55, 0.75), inset 0 0 8px rgba(212, 175, 55, 0.5);
+            transform: scale(1.06);
+            animation: seatPop 0.5s ease-out;
+        }
+
+        .chair.occupied .chair-number {
+            opacity: 1;
+            color: var(--gold);
+            filter: drop-shadow(0 0 6px var(--gold));
+        }
+
+        .chair-tooltip {
+            position: absolute;
+            bottom: -26px;
+            background: #1a1a24;
+            border: 1px solid var(--gold);
+            color: var(--gold-light);
+            font-size: 0.6rem;
+            padding: 2px 6px;
+            border-radius: 6px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            z-index: 10;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+        }
+
+        .chair.occupied:hover .chair-tooltip {
+            opacity: 1;
+        }
+
+        @keyframes seatPop {
+            0% { transform: scale(0.7); opacity: 0; }
+            70% { transform: scale(1.12); }
+            100% { transform: scale(1.06); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .top-navbar { grid-template-columns: 1fr; text-align: center; gap: 10px; }
+            .nav-left, .nav-right { text-align: center; }
+            .banquet-hall { height: 280px; }
+            .long-table { font-size: 0.8rem; height: 55px; width: 68%; }
+            .chair { width: 26px; height: 26px; border-radius: 5px; }
+            .chair-number { font-size: 0.6rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Верхняя панель -->
+        <div class="top-navbar">
+            <div class="nav-left">
+                Дата просмотра:<br><span id="currentDate">--.--.----</span> (<span id="currentTime">--:--</span>)
+            </div>
+            <div class="nav-center">Приглашение на юбилей</div>
+            <div class="nav-right">
+                <div class="nav-right-title">До юбилея осталось:</div>
+                <div class="nav-timer-values" id="countdownTimer">-- дн. -- ч. -- мин.</div>
+            </div>
+        </div>
+
+        <!-- Детали ресторана -->
+        <header>
+            <div class="event-details">
+                Среда, 30 декабря 2026 года в <strong>19:00</strong><br>
+                Ресторан <strong>«Будда»</strong>, ул. Калинина 127
+            </div>
+        </header>
+
+        <!-- Блок с видео -->
+        <section class="video-section">
+            <div class="section-subtitle">Включите звук для просмотра обращения</div>
+            
+            <div class="video-container">
+                <video id="inviteVideo" src="invite.mp4" controls playsinline preload="metadata"></video>
+            </div>
+
+            <div class="btn-gold-container" id="participateContainer">
+                <button class="btn-gold" onclick="scrollToRSVP()">Принять участие</button>
+            </div>
+        </section>
+
+        <!-- Блок выбора семей и праздничного стола (скрыт до конца видео) -->
+        <section class="rsvp-section" id="rsvpSection">
+            <h2 class="section-title">Праздничный Стол</h2>
+            <div class="section-subtitle">Выберите вашу семью и подтвердите присутствие гостей (<span id="seated-count">2</span> / 15 мест занято)</div>
+
+            <!-- Список из 3 семей -->
+            <div class="families-container" id="familiesContainer">
+                
+                <!-- 1 блок: Поповы -->
+                <div class="family-card" id="fam-0">
+                    <div class="family-header">
+                        <span class="family-name">Поповы</span>
+                        <button class="family-btn-select" onclick="toggleFamilySelect(0)">Выбрать</button>
+                    </div>
+                    <div class="guest-names-box" id="names-box-0">
+                        <div class="guest-names-title">Нажмите на имя гостя для подтверждения:</div>
+                        <div class="names-list" id="list-0">
+                            <button class="name-btn" onclick="confirmGuest(0, 'Ирина', 'Поповы', this)">Ирина</button>
+                            <button class="name-btn" onclick="confirmGuest(0, 'Роман', 'Поповы', this)">Роман</button>
+                            <button class="name-btn" onclick="confirmGuest(0, 'Даниил', 'Поповы', this)">Даниил</button>
+                            <button class="name-btn" onclick="confirmGuest(0, 'Мария', 'Поповы', this)">Мария</button>
+                            <button class="name-btn" onclick="confirmGuest(0, 'Людмила', 'Поповы', this)">Людмила</button>
+                            <button class="name-btn" onclick="confirmGuest(0, 'Александр', 'Поповы', this)">Александр</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2 блок: Простокишины -->
+                <div class="family-card" id="fam-1">
+                    <div class="family-header">
+                        <span class="family-name">Простокишины</span>
+                        <button class="family-btn-select" onclick="toggleFamilySelect(1)">Выбрать</button>
+                    </div>
+                    <div class="guest-names-box" id="names-box-1">
+                        <div class="guest-names-title">Нажмите на имя гостя для подтверждения:</div>
+                        <div class="names-list" id="list-1">
+                            <button class="name-btn" onclick="confirmGuest(1, 'Валентина', 'Простокишины', this)">Валентина</button>
+                            <button class="name-btn" onclick="confirmGuest(1, 'Геннадий', 'Простокишины', this)">Геннадий</button>
+                            <button class="name-btn" onclick="confirmGuest(1, 'Гость 3', 'Простокишины', this)">Гость 3</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3 блок: Богородские -->
+                <div class="family-card" id="fam-2">
+                    <div class="family-header">
+                        <span class="family-name">Богородские</span>
+                        <button class="family-btn-select" onclick="toggleFamilySelect(2)">Выбрать</button>
+                    </div>
+                    <div class="guest-names-box" id="names-box-2">
+                        <div class="guest-names-title">Нажмите на имя гостя для подтверждения:</div>
+                        <div class="names-list" id="list-2">
+                            <button class="name-btn" onclick="confirmGuest(2, 'Любовь', 'Богородские', this)">Любовь</button>
+                            <button class="name-btn" onclick="confirmGuest(2, 'Евгений', 'Богородские', this)">Евгений</button>
+                            <button class="name-btn" onclick="confirmGuest(2, 'Артём', 'Богородские', this)">Артём</button>
+                            <button class="name-btn" onclick="confirmGuest(2, 'Трофим', 'Богородские', this)">Трофим</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Визуальный банкетный стол на 15 персон -->
+            <div class="banquet-hall">
+                <div class="long-table">
+                    Банкетный Стол
+                    <span>15 персон</span>
+                </div>
+                <div class="chairs-container" id="chairsContainer">
+                    <!-- Стулья генерируются через JS -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Реальное время просмотра
+        function updateRealTime() {
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('ru-RU');
+            const timeStr = now.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+            document.getElementById('currentDate').innerText = dateStr;
+            document.getElementById('currentTime').innerText = timeStr;
+        }
+        setInterval(updateRealTime, 1000);
+        updateRealTime();
+
+        // Таймер до 30 декабря 2026 в 19:00
+        const eventDate = new Date('December 30, 2026 19:00:00').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+
+            if (distance < 0) {
+                document.getElementById('countdownTimer').innerText = 'Юбилей начался!';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+            document.getElementById('countdownTimer').innerText = `${days} дн. ${hours} ч. ${minutes} мин.`;
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Отслеживание окончания видео для появления кнопки
+        const videoElement = document.getElementById('inviteVideo');
+        videoElement.addEventListener('ended', function() {
+            const btnContainer = document.getElementById('participateContainer');
+            btnContainer.classList.add('visible');
+        });
+
+        // Плавная прокрутка к столу и открытие блока
+        function scrollToRSVP() {
+            const rsvpSection = document.getElementById('rsvpSection');
+            rsvpSection.classList.add('unlocked');
+            setTimeout(() => {
+                rsvpSection.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        }
+
+        // Банкетный стол на 15 персон
+        const totalSeats = 15;
+        let occupiedSeatsCount = 2; // Юбиляр и супруга заняли почетные места
+        const chairsContainer = document.getElementById('chairsContainer');
+
+        /*
+           Порядок заполнения (fillOrder):
+           Сначала нижний ряд напротив супруги (индекс 6), затем верхний рядом с супругой (индекс 1), 
+           дальше снова внизу (индекс 7), вверху (индекс 2) и т.д. слева направо.
+           [6, 1, 7, 2, 8, 3, 9, 4, 10, 5, 11, 12]
+        */
+        const fillOrder = [6, 1, 7, 2, 8, 3, 9, 4, 10, 5, 11, 12];
+
+        function initChairs() {
+            chairsContainer.innerHTML = '';
+            for (let i = 0; i < totalSeats; i++) {
+                const chair = document.createElement('div');
+                chair.classList.add('chair');
+                chair.dataset.index = i;
+
+                let xPercent, yPercent;
+                
+                if (i === 13) {
+                    // Левый торец — Юбиляр (Место №1)
+                    xPercent = 4;
+                    yPercent = 44;
+                } else if (i === 14) {
+                    // Правый торец (Место №15)
+                    xPercent = 94;
+                    yPercent = 44;
+                } else if (i >= 0 && i <= 5) {
+                    // Верхний ряд (индексы 0..5, слева направо)
+                    const pos = i; 
+                    xPercent = 15 + (pos * 11);
+                    yPercent = 14;
+                } else if (i >= 6 && i <= 12) {
+                    // Нижний ряд (индексы 6..12, слева направо)
+                    const pos = i - 6; 
+                    xPercent = 15 + (pos * 11);
+                    yPercent = 74;
+                }
+
+                chair.style.left = `${xPercent}%`;
+                chair.style.top = `${yPercent}%`;
+
+                // Нумерация стульев по порядку:
+                // 1 -> левый торец (Юбиляр)
+                // 2 -> верхний ряд слева (Супруга)
+                // 3 -> нижний ряд слева (напротив супруги)
+                // и далее змейкой слева направо
+                let chairNumber = '';
+                if (i === 13) chairNumber = '1';
+                else if (i === 0) chairNumber = '2';
+                else if (i === 6) chairNumber = '3';
+                else if (i === 1) chairNumber = '4';
+                else if (i === 7) chairNumber = '5';
+                else if (i === 2) chairNumber = '6';
+                else if (i === 8) chairNumber = '7';
+                else if (i === 3) chairNumber = '8';
+                else if (i === 9) chairNumber = '9';
+                else if (i === 4) chairNumber = '10';
+                else if (i === 10) chairNumber = '11';
+                else if (i === 5) chairNumber = '12';
+                else if (i === 11) chairNumber = '13';
+                else if (i === 12) chairNumber = '14';
+                else if (i === 14) chairNumber = '15';
+
+                if (i === 13) {
+                    chair.classList.add('occupied');
+                    chair.innerHTML = `
+                        <span class="chair-number">${chairNumber}</span>
+                        <div class="chair-tooltip" id="tooltip-${i}">1. Андрей (Юбиляр)</div>
+                    `;
+                } else if (i === 0) {
+                    chair.classList.add('occupied');
+                    chair.innerHTML = `
+                        <span class="chair-number">${chairNumber}</span>
+                        <div class="chair-tooltip" id="tooltip-${i}">2. Супруга</div>
+                    `;
+                } else {
+                    chair.innerHTML = `
+                        <span class="chair-number">${chairNumber}</span>
+                        <div class="chair-tooltip" id="tooltip-${i}">${chairNumber}. Свободно</div>
+                    `;
+                }
+
+                chairsContainer.appendChild(chair);
+            }
+        }
+
+        initChairs();
+
+        function toggleFamilySelect(index) {
+            for (let i = 0; i < 3; i++) {
+                document.getElementById(`names-box-${i}`).classList.remove('active');
+                document.getElementById(`fam-${i}`).classList.remove('selected');
+            }
+            document.getElementById(`names-box-${index}`).classList.add('active');
+            document.getElementById(`fam-${index}`).classList.add('selected');
+        }
+
+        function confirmGuest(familyIndex, guestName, familyName, btnElement) {
+            const freeSeats = totalSeats - occupiedSeatsCount;
+            if (freeSeats <= 0) {
+                alert('К сожалению, все места за столом уже заняты!');
+                return;
+            }
+
+            const chairs = chairsContainer.querySelectorAll('.chair');
+            let placed = false;
+
+            for (let idx of fillOrder) {
+                const targetChair = chairs[idx];
+                if (!targetChair.classList.contains('occupied')) {
+                    targetChair.classList.add('occupied');
+                    const tooltip = document.getElementById(`tooltip-${idx}`);
+                    if (tooltip) {
+                        const num = targetChair.querySelector('.chair-number').innerText;
+                        tooltip.innerText = `${num}. ${guestName} (${familyName})`;
+                    }
+                    occupiedSeatsCount++;
+                    placed = true;
+                    break;
+                }
+            }
+
+            if (placed) {
+                document.getElementById('seated-count').innerText = occupiedSeatsCount;
+                btnElement.classList.add('confirmed');
+                btnElement.onclick = null;
+                
+                const listContainer = document.getElementById(`list-${familyIndex}`);
+                const remainingActive = listContainer.querySelectorAll('.name-btn:not(.confirmed)');
+                if (remainingActive.length === 0) {
+                    document.getElementById(`fam-${familyIndex}`).style.display = 'none';
+                }
+
+                alert(`Гость ${guestName} (${familyName}) успешно размещен за праздничным столом!`);
+            }
+        }
+    </script>
+</body>
+</html>
